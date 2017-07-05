@@ -1,0 +1,157 @@
+
+
+
+{% paginate blog.articles by 13 %}
+
+<div id="blog" class="blog-scope">
+  <div class="hi-blog">  Hi-Lux Blogs </div>
+<div class="posts">
+
+
+  <div class="page_content">
+    {% for article in blog.articles %}
+    
+   
+    
+    <div class="blog-article{% if forloop.first %} first{% endif %}{% if forloop.last %} last{% endif %}">
+
+      <div class="article_header">
+			 <img src="{{ article.image.src | img_url: 'medium' }}">
+        
+        
+        <h2 class="blog-article_title">
+          <a href="{{ article.url }}">{{ article.title }}</a>
+        </h2> 
+
+        
+        <div class="blog-article_date">        
+          <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+            <span class="month">{{ article.published_at | date: '%b' }}</span>
+            <span class="day">{{ article.published_at | date: '%d' }}</span>,            
+             <span class="year">{{ article.published_at | date: '%y' }}</span>
+          </time>
+        </div>
+
+        {% if blog.comments_enabled? %}
+      <!--  <div class="blog-article_meta-comments">
+          <a href="{{ article.url }}#comments">{{ article.comments_count }} {{ article.comments_count | pluralize: 'comment','comments' }}</a>
+        </div> -->
+        {% endif %}
+
+        {% if article.tags.size > 0 %}
+        <div class="blog-article_meta-tags">
+          <span>Filed under</span>
+          {% for tag in article.tags %} 
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+          {% endfor %}
+        </div>
+        {% endif %}
+
+      </div>
+
+       {% if article.content contains "<img" %}
+      <div class="article-thumbnail">
+
+              {% assign src = article.content | split: 'src="' %}
+              {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn'; | replace: 'http:http://';, 'http://'; | remove: 'https:' %}
+              <a href="{{ article.url }}" ><img src="{{ src }}"/></a>
+
+      </div>
+     {% endif %}
+      
+      <div class="rte">
+        {% if article.excerpt.size > 0 %}
+          {{ article.excerpt }}
+        {% else %}
+          <p>{{ article.content | strip_html | truncatewords: 100 }}</p>
+        {% endif %}
+      </div>
+
+    <!--  <a class="blog-article_read-more btn btn-info" href="{{ article.url }}">Read more</a> -->
+        
+   
+  </div>
+    {% endfor %}
+   </div>
+  
+   </div>
+    <div class="right-side">
+    <div class="social">  
+      <form method="get" action="/search">
+        <div class="media"> Search </div>
+          <input type="text" name="q"  placeholder="Search" class="s-inner" />
+       <button class="button s-search"  type="submit" value="Search">  <i class="fa fa-search" aria-hidden="true"></i> </button>
+     </form>
+      </div>
+      
+           <div class="social">  
+              
+              <div class="media"> Categories </div>
+              {% if handle %}
+           <div class="cateogry-cover">   <div class="name-post"> <a href="https://hi-luxoptics.com/blogs/leatherwood-hi-lux">
+             {{blog.handle}}</a> </div> <div class="countnumber"> {{blog.articles_count}} </div>  
+             </div>
+              {% endif %}
+
+   		  </div>
+      
+      
+      <div class="social">  
+           
+               <ul>
+        	  <div class="media"> Tags </div>
+              {% for tag in blog.all_tags %}
+              {% if current_tags contains tag %}
+             
+             <li class="{{ tag | handleize }} current"> <a href="{{ blog.url }}/tagged/{{ tag | handle }}"">{{ tag | blog.all_tags: tag }} </a></li>
+              {% else %}
+             <li class="{{ tag | handleize }}"> <a href="{{ blog.url }}/tagged/{{ tag | handle }}"">{{ tag | blog.all_tags : tag }} </a> </li>
+              {% endif %}
+              {% endfor %}
+           </ul> 
+      </div>
+       <div class="social">  
+         <div class="media"> Recent Posts </div>
+      		
+        {% for article in blog.articles limit:3 %}
+         <div class="recent-post-blog">  
+           <a href="{{ article.url }}"> <img src="{{ article.image.src | img_url: 'medium' }}"> </a>
+        <div class="cover-post">
+          <div class="post-date-recent">  {{ article.created_at | date: "%d %h %Y" }} </div>
+        {{ article.content | truncate: 65 }}
+           </div>
+         </div>
+        {% endfor %}
+      </div>        
+                
+                
+         <ul class="social"> 
+         <div class="media">  Social Media 	</div> 
+           <ul class="nav nav-pills nav-stacked social_list">
+           <li class="firstItem"><a href="https://www.facebook.com/LeatherwoodHiLuxOptics"><i class="facebook"></i></a></li>
+           <li><a href="https://www.twitter.com/hiluxoptics"><i class="twitter"></i></a></li>
+           <li class="lastItem"><a href="https://www.instagram.com/leatherwoodoptics"><i class="fliker"></i></a></li>
+         </ul>
+            </ul>
+   </div>
+  
+     {% if paginate.pages > 1 %}
+      <div id="pagination" class="pagination">
+        {% comment %}
+        When paginating blog articles, a previous article is actually a newer article, not an older one,
+        because blog articles are shown and paginated in a reversed chronological order.
+        The word 'previous' can be confusing, hence we'll change it.
+        {% endcomment %}
+        {{ paginate | default_pagination | replace: 'Previous', 'Newer articles' | replace: 'Next', 'Older articles' }}
+      </div>
+    {% endif %}
+  
+</div>
+
+{% endpaginate %}
+
+  <script>
+    jQuery(function($){
+      $('#pagination').find('span').wrap('<li></li>');
+    });
+  </script>

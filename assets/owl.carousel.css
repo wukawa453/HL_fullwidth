@@ -1,0 +1,173 @@
+/* 
+ * 	Core Owl Carousel CSS File
+ *	v1.3.3
+ */
+
+/* clearfix */
+.owl-carousel .owl-wrapper:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+/* display none until init */
+.owl-carousel {
+	display: none;
+	position: relative;
+	width: 100%;
+	-ms-touch-action: pan-y;
+}
+.owl-carousel .owl-wrapper {
+	display: none;
+	position: relative;
+	-webkit-transform: translate3d(0px, 0px, 0px);
+}
+.owl-carousel .owl-wrapper-outer {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+.owl-carousel .owl-wrapper-outer.autoHeight {
+	-webkit-transition: height 500ms ease-in-out;
+	-moz-transition: height 500ms ease-in-out;
+	-ms-transition: height 500ms ease-in-out;
+	-o-transition: height 500ms ease-in-out;
+	transition: height 500ms ease-in-out;
+}
+.owl-carousel .owl-item {
+	float: left;
+}
+.owl-controls .owl-page, .owl-controls .owl-buttons div {
+	cursor: pointer;
+}
+.owl-controls {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+/* mouse grab icon */
+.grabbing {
+	cursor: url(grabbing.png) 8 8, move;
+}
+/* fix */
+.owl-carousel .owl-wrapper, .owl-carousel .owl-item {
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+}
+
+
+/* PRODUCTS SLIDER = */
+.owl-item .item {
+	margin: 0 10px;
+}
+.slider-items {
+	position: relative;
+}
+.slider-items .item {
+	text-align: center;
+}
+.owl-buttons {
+	opacity: 1;
+}
+.slider-items .owl-buttons .owl-prev {
+	position: absolute;
+	right: 152px;
+	top: -110px;
+}
+.slider-items .owl-buttons .owl-next {
+	position: absolute;
+	right: 80px;
+	top: -110px;
+}
+.slider-items .owl-buttons .owl-prev a {
+	background-position: 0 100%;
+	left: 0;
+	top: 50%;
+}
+.slider-items .owl-buttons .owl-next a {
+	background-position: 100% 100%;
+	left: 0;
+	top: 50%;
+}
+.slider-items .owl-buttons .owl-next a:before {
+	font-family: 'FontAwesome';
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+	content: "\f105";
+	text-transform: none;
+	font-size: 40px;
+	padding: 6px 6px 6px 6px;
+	line-height: 22px;
+}
+.slider-items .owl-buttons .owl-prev a:before {
+	font-family: 'FontAwesome';
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+	content: "\f104";
+	text-transform: none;
+	font-size: 40px;
+	padding: 6px 4px;
+	line-height: 22px;
+}
+.slider-items .owl-buttons a {
+	background: #3c3c3c;
+	display: block;
+	height: 80px;
+	margin: 0px 0 0;
+	position: absolute;
+	top: 50%;
+	width: 70px;
+	z-index: 5;
+	border: 1px solid #ddd;
+	color: #FFF;
+    padding: 24px;
+  
+}
+.product-flexslider {
+	margin:5px -10px;
+}
+
+
+.owl-theme .owl-controls {
+margin-top: 10px;
+text-align: center;
+}
+
+.owl-carousel .col-lg-4, .owl-carousel .col-md-3, .owl-carousel .col-sm-4, .owl-carousel .col-xs-6-12{ width:100%}
+
+.owl-carousel .product{padding:0px;}
+
+.owl-carousel .sca-qv-image .sca-qv-button {top:30%!important;}
+/*.owl-carousel .product .product_info {top:32%!important;}*/
+#related-slider .owl-item .item .product {
+	width: 100%;
+	margin: 0 auto;
+	border: 1px solid #dddddd;
+    display: table-cell;
+}
+.product-listing .product .product_item{
+	margin: 0 auto;
+	border: 1px solid #dddddd;
+    display: table-cell;
+}
+.product-listing .product .product_item img{ 
+    max-width:100%;
+}
+@media (min-width: 768px) and (max-width: 991px) 
+{
+   .owl-item .item {
+    margin: 0 11px;
+}
+  
+}  

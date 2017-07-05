@@ -1,0 +1,87 @@
+<!-- Solution brought to you by Caroline Schnapp -->
+<!-- See this: http://wiki.shopify.com/Related_Products -->
+
+{% assign number_of_related_products_to_show = 8 %}
+{% assign image_size = 'compact' %}
+{% assign heading = 'Suggested Accessories & Related Products' %}
+
+{% capture number_of_related_products_to_fetch %}{{ number_of_related_products_to_show | plus: 1 }}{% endcapture %}
+
+{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+{% assign found_a_collection = false %}
+{% for c in product.collections %}
+  {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+    {% assign found_a_collection = true %}
+    {% assign collection = c %}
+  {% endif %}
+{% endfor %}
+{% endif %}
+<div class="widget widget__cart-products">
+  {% if collection and collection.products_count > 1 %}
+
+  <div class="widget_content">
+     <div class="product-listing product-listing__bestsellers">
+       <div id="cart-popup-slider" class="product-flexslider hidden-buttons">
+         <div class="widget_header">
+    <h3>{{ heading }}</h3>
+  </div>
+              <div class="slider-items slider-width-col4"> 
+        {% assign current_product_found = false %}
+        {% for prod in collection.products limit: number_of_related_products_to_fetch %}
+        {% if prod.title == product.title %}
+           {% assign current_product_found = true %}
+        {% else %}
+           {% unless current_product_found == false and forloop.last %}
+        <div class="item">
+          <div class="product product__product-grid-item">
+              <div class="product_image-wrap">
+                <a href="{{ prod.url | within: collection }}" title="{{ prod.title | escape }}">
+                {{ prod.featured_image | product_img_url: 'medium' | img_tag }}
+                </a>
+              </div>
+              <div class="product_caption">
+                <div class="product_title-wrap">
+                  <a href="{{ prod.url }}" title="{{ prod.title | escape }}">{{ prod.title }}</a>
+                </div>
+              </div>
+          	  <span class="shopify-product-reviews-badge" data-id="{{ prod.id }}"></span>
+              
+           	  <div class="choose-price">
+        <a href="javascript:void(0);" tabindex="0">
+          	<span class="money">
+            	{{ prod.price | money }}
+			</span>
+        </a>
+        {% if prod.price < prod.compare_at_price_min %}
+        <del> <span class="money">{{ prod.compare_at_price_min | money }}</span></del> <span class="sale-badge">Sale</span>
+        {% endif %}
+  </div>
+            </div>
+                </div>
+           {% endunless %}
+        {% endif %}
+        {% endfor %}
+                 </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+ jQuery(document).ready(function(cash) {
+  jQuery("#cart-popup-slider .slider-items").owlCarousel({
+   items : 3, //10 items above 1000px browser width
+      itemsDesktop : [1024,3], //5 items between 1024px and 901px
+        itemsDesktopSmall : [900,3], // 3 items betweem 900px and 601px
+        itemsTablet: [600,2], //2 items between 600 and 0;
+        itemsMobile : [450,1],
+        navigation : true,
+        navigationText : ["<a class=\"flex-prev\"></a>","<a class=\"flex-next\"></a>"],
+        slideSpeed : 500,
+        pagination : false
+     });
+ }); 
+//]]>
+</script>

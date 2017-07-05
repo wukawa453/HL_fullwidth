@@ -1,0 +1,88 @@
+{% comment %}
+Re-use the 'rte' class wherever you output content that was added by a merchant using
+the Rich Text Editor ( 'rte' stands for rich text editor ).
+Style all HTML elements in that content the same way across the board.
+Use the 'rte' class in your CSS to help maintain that consistency.
+Example: the h2 element should have the same size and color in:
+- product descriptions
+- collection descriptions
+- 'page' pages' content
+- blog post
+{% endcomment %}
+
+<div class="index-scope">
+
+{% assign page = pages.frontpage %}
+
+  <!--
+{% comment %}  
+<div class="rte">
+  {{ page.content }}
+</div>
+{% endcomment %}
+-->
+
+
+  {% assign listing_cols = settings.homepage_listing_cols %}
+  {% assign image_size = settings.homepage_listing_image_size %}
+  {% assign feature_collection = collections[settings.homepage_products] %}
+
+  
+  {% include 'widget-best-sellers' %} 
+ <div class="widget  widget__new-pro hidden"> 
+ <div class="widget_header">
+  <!--<h3>Featured Collections</h3>-->
+  <h3>{{ feature_collection.title }}</h3>
+  </div> 
+
+
+  {% if shop.products_count < 1 %}
+    <div class="hero-unit">    
+      <p class="text-center">This section displays new products. Unfortunately you don't have any products in your store yet. </p>
+      <p class="text-center">
+        <a class="btn btn-primary" href="/admin/products/new">Would you like to add some?</a> 
+      </p>
+    </div>
+  {% endif %}
+
+<div class="product-listing product-listing__index">
+
+      <div id="new-pro-slider" class="product-flexslider hidden-buttons">
+              <div class="slider-items slider-width-col4"> 
+                
+                <!-- Item -->
+               
+             {% for product in collections[settings.homepage_products].products limit:settings.homepage_products_count %}
+                 <div class="item">
+		  {% include 'product-grid-item' with 'listing_cols' with 'image_size' %}	
+                   </div>
+                
+		{% endfor %}
+                
+                <!-- End Item --> 
+		
+        </div></div>
+	
+</div>
+
+</div>
+  
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+ jQuery(document).ready(function(cash) {
+  jQuery("#new-pro-slider .slider-items").owlCarousel({
+   items : 4, //10 items above 1000px browser width
+      itemsDesktop : [1024,4], //5 items between 1024px and 901px
+        itemsDesktopSmall : [900,3], // 3 items betweem 900px and 601px
+        itemsTablet: [600,2], //2 items between 600 and 0;
+        itemsMobile : [450,1],
+        navigation : true,
+        navigationText : ["<a class=\"flex-prev\"></a>","<a class=\"flex-next\"></a>"],
+        slideSpeed : 500,
+        pagination : false
+     });
+ }); 
+//]]>
+</script>

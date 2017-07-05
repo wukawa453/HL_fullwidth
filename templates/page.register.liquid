@@ -1,0 +1,292 @@
+{% comment %}
+Re-use the 'rte' class wherever you output content that was added by a merchant using
+the Rich Text Editor ( 'rte' stands for rich text editor ).
+Style all HTML elements in that content the same way across the board.
+Use the 'rte' class in your CSS to help maintain that consistency.
+Example: the h2 element should have the same size and color in: 
+- product descriptions
+- collection descriptions
+- 'page' pages' content
+- blog post
+{% endcomment %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<div class="page-scope">
+
+  <div class="page_header">
+    <h1 class="page_title">{{ page.title }}</h1>
+  </div>
+
+  <div class="page_content">
+    <div class="rte">
+       {% if customer %}
+ 
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Register Product</button>      
+      <div class="myregistered_pro" rel="{{ customer.id }}">
+      
+      </div>
+
+      <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <form action="" method="POST" id="productregister">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Register Your Product</h4>
+            </div>
+            <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h4>General Information</h4></div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">First Name : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="{{customer.first_name}}" name="reg[fname]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Last Name : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="{{customer.last_name}}" name="reg[lname]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Street : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="{{ customer.default_address.address1 }}" name="reg[street]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Country : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="{{ customer.default_address.country }}" name="reg[country]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">State : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="{{ customer.default_address.province_code }}" name="reg[state]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Zip Code : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="{{ customer.default_address.zip }}" name="reg[zipcode]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Phone : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="number" value="{{ customer.default_address.phone }}" name="reg[phone]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Email : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="email" value="{{customer.email}}" name="reg[email]">
+                                </div>
+                            </div>
+                        </div>
+						
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12"><h4>Hi-Lux warranty Registration</h4></div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Product : <span class="required">*</span></label>
+                                <div class="controls">
+									<select name="reg[product_id]" class="form-control">
+										<option value="">Select Product</option>
+										{% for product in collections.all.products %}
+										<option value="{{ product.id }}">{{ product.title }}</option>
+										{% endfor %}
+									</select>
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Serial Number : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="number" value="" name="reg[serialnumber]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Purchase Date : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control datepicker" required type="text" value="" name="reg[dateofpurchase]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Dealer Name : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="" name="reg[dealer_name]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">What changes or modifications would you recommend be made to improve this product? : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="" name="reg[recommend]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">What new products would you like to see offered by us? : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="" name="reg[pro_offered]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">What hunting/shooting magazines do you normally read? : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="" name="reg[hunting_magzn]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">What hunting/shooting television programs do you like to watch? : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="" name="reg[hunting_tv]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Do you participate in Internet forums or blogs? Which ones? : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="" name="reg[blog_join]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">How did you hear about Leatherwood, Hi-Lux, Malcolm optics? : <span class="required">*</span></label>
+                                <div class="controls">
+									<select name="reg[leatherwood]" class="form-control" required="required">
+										<option value="">Select option</option>
+										<option value="Print Advertisement">Print Advertisement</option>
+										<option value="Online Advertisement">Online Advertisement</option>
+										<option value="Email/Newsletter">Email/Newsletter</option>
+										<option value="Website/search engine">Website/search engine</option>
+										<option value="Online Forum">Online Forum</option>
+										<option value="TV Show">TV Show</option>
+										<option value="Facebook/Twitter">Facebook/Twitter</option>
+										<option value="Instagram">Instagram</option>
+										<option value="At a Retail Store">At a Retail Store</option>
+										<option value="At Shooting Range">At Shooting Range</option>
+										<option value="Shooting Competition">Shooting Competition</option>
+										<option value="Friend">Friend</option>
+									</select>
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Are you a member of a local rifle shooting club or range? <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="radio" class="ismember" required="required" value="Yes" name="reg[ismember]"> Yes
+                                    <input type="radio" class="ismember" required="required" value="No" name="reg[ismember]"> No
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Do you participate in any of the following competitive shooting events? : <span class="required">*</span></label>
+                                <div class="controls ">
+                                    <input type="checkbox" required onClick='deRequire("event_join")' class="event_join" value="Long-range benchrest" name="reg[event_join][]"> Long-range benchrest<br>
+                                    <input type="checkbox" required onClick='deRequire("event_join")' class="event_join" value="Short-range benchrest" name="reg[event_join][]"> Short-range benchrest<br>
+                                    <input type="checkbox" required onClick='deRequire("event_join")' class="event_join" value="F-Class" name="reg[event_join][]"> F-Class<br>
+                                    <input type="checkbox" required onClick='deRequire("event_join")' class="event_join" value="Precision tactical" name="reg[event_join][]"> Precision tactical<br>
+                                    <input type="checkbox" required onClick='deRequire("event_join")' class="event_join" value="3-Gun  Tactical" name="reg[event_join][]"> 3-Gun  Tactical<br>
+                                    <input type="checkbox" required onClick='deRequire("event_join")' class="event_join other" value="other" name="reg[event_join][]"> Other(which events?)<br>
+                                    <input class="form-control event_join_other" type="text" value="" name="reg[event_join_other]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Do you travel to participate in competitive shooting events? <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="radio" class="com_shoot_join" required="required" value="Yes" name="reg[com_shoot_join]"> Yes
+                                    <input type="radio" class="com_shoot_join" required="required" value="No" name="reg[com_shoot_join]"> No
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">If so, how far do you typically travel? : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="" name="reg[how_far_typ_tra]">
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+                            <div class="clearfix large_form control-group">
+                                <label class="control-label">Do you have any additional comments? : <span class="required">*</span></label>
+                                <div class="controls">
+                                    <input class="form-control" required="required" type="text" value="" name="reg[add_comts]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" value="{{ customer.id }}" name="reg[customerid]">
+                
+            </div>
+            <div class="modal-footer">
+              	<button type="submit" class="btn btn-default jemssubmit">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+        </div>
+
+    </div>
+      </div>
+      
+{% else %}
+	<p>To create a wish list you must <a href='/account/login' class="btn btn-primary">sign in</a> or <a href='/account/register' class="btn btn-primary">create an account</a>.</p>
+{% endif %}
+
+        {{ page.content }}
+      </div>
+  </div>
+  
+</div>
+<script>
+$(document).ready(function(){
+	$(".datepicker").datepicker();
+});
+</script>
+<style>
+  @media (min-width: 768px){
+    .modal-dialog {
+        width: 800px;
+        margin: 30px auto;
+    }
+  }
+  </style>

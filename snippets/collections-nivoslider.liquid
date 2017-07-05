@@ -1,0 +1,89 @@
+{% assign slide1 = 'coll_slide_1_image.jpg' %}
+{% assign slide2 = 'coll_slide_2_image.jpg' %}
+{% assign slide3 = 'coll_slide_3_image.jpg' %}
+
+{% if settings.coll_slide1_toggle or settings.coll_slide2_toggle or settings.coll_slide3_toggle %}
+<div id="slider_wrap" class="collections_slider">
+  <div class="row">
+    <div class="col-lg-12 col-sm-12 col-md-12">
+<div id="slider">
+
+    {% if settings.coll_slide1_toggle %}
+        {% if settings.coll_slide_1_link %}<a href="{{ settings.coll_slide_1_link }}">{% endif %}
+          <img src="{{ slide1 | asset_url }}" title="#htmlcaption-1" />
+        {% if settings.coll_slide_1_link %}</a>{% endif %}
+    {% endif %}
+
+    {% if settings.coll_slide2_toggle %}
+        {% if settings.coll_slide_2_link %}<a href="{{ settings.coll_slide_2_link }}">{% endif %}
+          <img src="{{ slide2 | asset_url }}" title="#htmlcaption-2" />
+        {% if settings.coll_slide_2_link %}</a>{% endif %}
+    {% endif %}
+
+    {% if settings.coll_slide3_toggle %}
+        {% if settings.coll_slide_3_link %}<a href="{{ settings.coll_slide_3_link }}">{% endif %}
+          <img src="{{ slide3 | asset_url }}" title="#htmlcaption-3" />
+        {% if settings.coll_slide_3_link %}</a>{% endif %}
+    {% endif %}
+
+</div>
+    </div>
+  
+    </div>
+</div>
+{% endif %}
+
+<div class="caption_hidden">
+
+<div id="htmlcaption-1">
+    <div class="caption_title caption_title-1">
+      <div class="caption_content caption_content-1">
+        <h3>{{ settings.coll_slide_1_caption_line1 }}</h3>
+      </div>
+      <div class="caption_content caption_content-1">
+        <p>{{ settings.coll_slide_1_caption_text }}</p>
+      </div>
+    </div>
+
+</div>
+
+<div id="htmlcaption-2">
+    <div class="caption_title caption_title-2">
+      <div class="caption_content caption_content-2">
+        <h3>{{ settings.coll_slide_2_caption_line1 }}</h3>
+      </div>
+      <div class="caption_content caption_content-1">
+        <p>{{ settings.coll_slide_2_caption_text }}</p>
+      </div>
+    </div>
+    
+</div>
+
+<div id="htmlcaption-3">
+    <div class="caption_title caption_title-3">
+       <div class="caption_content caption_content-3">
+        <h3>{{ settings.coll_slide_3_caption_line1 }}</h3>
+      </div>
+      <div class="caption_content caption_content-1">
+        <p>{{ settings.coll_slide_3_caption_text }}</p>
+      </div>
+    </div>
+    
+</div>
+
+</div>
+
+<script type="text/javascript">
+$(window).load(function() {
+    $('#slider').nivoSlider({
+        effect:'slideInLeft',
+        animSpeed:500,
+        pauseTime:7000,
+        startSlide:0,
+        directionNav:true,
+        directionNavHide:false,
+        controlNav:true,
+        pauseOnHover:true
+    });
+});
+</script>

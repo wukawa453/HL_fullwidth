@@ -1,0 +1,87 @@
+
+{% comment %}Is this product on sale?{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% assign item_width = 3 %}
+
+{% case listing_cols %}
+  {% when '1' %}
+    {% assign item_width = 12 %}
+  {% when '2' %}
+    {% assign item_width = 6 %}
+  {% when '3' %}
+    {% assign item_width = 4 %}
+  {% when '4' %}
+    {% assign item_width = 3 %}
+  {% when '6' %}
+    {% assign item_width = 2 %}
+{% endcase %}
+
+<div class="product product__product-grid-item col-sm-{{ item_width }} {% case listing_cols %}{% when '1' %}{% cycle : '', 'alpha' %}{% when '2' %}{% cycle : '', '', 'alpha' %}{% when '3' %}{% cycle : '', '', '', 'alpha' %}{% when '4' %}{% cycle : '', '', '', '', 'alpha' %}{% when '6' %}{% cycle : '', '', '', '', '', '', 'alpha' %}{% endcase %}{% cycle 'odd_even': 'item_odd', 'item_even' %} {% cycle 'step3': 'step3-1', 'step3-2', 'step3-3' %} {% cycle 'step4': 'step4-1', 'step4-2', 'step4-3', 'step4-4' %}">
+<div class="product_item">
+  {% for mytag in product.tags %}
+    {% if mytag == 'new' %}
+  <div class="offprice"><p>New</p></div>
+    {% endif %}
+    {% if mytag contains "discount" %}
+      <div class="offprice"><p>{{ mytag| replace: 'discount', '' }}</p></div>
+    {% endif %}
+  {% endfor %}
+  <div class="product_image-wrap">  
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | product_img_url: image_size }}" alt="{{ product.featured_image.alt | escape }}" />
+    </a>
+<!--      <a class="product_info trs_bg" href="{{ product.url | within: collection }}">Details</a> -->
+  </div><!-- .prod-image-wrap -->
+  
+        <div class="product_title-wrap">
+          <a href="{{ product.url | within: collection }}" class="product_title">
+            {{ product.title }}
+          </a>
+        </div>
+<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      <div class="product_price">
+       
+         {% if product.price < product.compare_at_price_min %}
+        <del> <span class="money">{{ product.compare_at_price_min | money }}</span></del> <span class="sale-badge">Sale</span>
+        {% endif %}
+		   
+          
+    	</div>
+  <div class="choose">
+    <ul class="nav nav-pills nav-justified {% unless product.available %}out-of-stock{% endunless %}">
+      <li><a href="javascript:void(0);" tabindex="0"><i class="itemchange"></i></a>
+      </li>
+      <li>
+        {% include 'col-wishlist' %}
+        
+      </li>
+      <li>
+        <form method="post" action="/cart/add">
+            {% for variant in product.variants limit:1 %}
+            <input type="hidden" name="id" value="{{ variant.id }}" class="btn"/>
+            {% endfor %}
+            {% if product.available %}
+          	<button type="submit" class="grid-addtocart"><i class="cart_item"></i></button>
+          	{% else %}
+          	<button type="submit" class="grid-addtocart" disabled><i class="cart_item_disabled"></i></button>
+            {% endif %}
+        </form>
+      </li>
+      <li class="price">
+        <a href="{{ product.url | within: collection }}" tabindex="0">
+          	<span class="money">
+            	{{ product.price | money }}
+			</span>
+        </a>
+        {% if product.price < product.compare_at_price_min %}
+        <del> <span class="money">{{ product.compare_at_price_min | money }}</span></del> <span class="sale-badge">Sale</span>
+        {% endif %}
+      </li>
+    </ul>
+  </div>
+</div>
+</div>

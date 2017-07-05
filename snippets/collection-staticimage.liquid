@@ -1,0 +1,23 @@
+<div id="featured-image-container">
+  {% assign collection_handle = collection.handle %}
+
+  {% case collection_handle %}
+  {% when 'hunting-rifle-scopes' %}
+  {% assign img_url = "hunting_rifle_image" | asset_url %}
+  {% when 'first-focal-plane-rifle-scopes' %}
+  {% assign img_url = "first_focal_image" | asset_url %}
+  {% when 'tactical-rifle-scopes-and-optics' %}
+  {% assign img_url = "tactical_rifle_image" | asset_url %}
+  {% when 'new-optics' %}
+  {% assign img_url = "new_optics_image" | asset_url %}
+  {% when 'william-malcolm-accessories' %}
+  {% assign img_url = "vintage_mounts_image" | asset_url %}
+  {% when 'vintage-reproduction-scopes' %}
+  {% assign img_url = "vintage_reproduction_image" | asset_url %}
+  {% when 'mounts-rails-rings' %}
+  {% assign img_url = "mounts_rails_image" | asset_url %}
+  {% else %}
+  {% endcase %}
+  
+  {% if collection.image %} <img src="{{ img_url }}"> {% endif %}
+</div>

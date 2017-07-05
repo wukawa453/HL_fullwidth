@@ -1,0 +1,46 @@
+
+{% comment %}Is this product on sale?{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% assign item_width = 3 %}
+
+{% case listing_cols %}
+  {% when '1' %}
+    {% assign item_width = 12 %}
+  {% when '2' %}
+    {% assign item_width = 6 %}
+  {% when '3' %}
+    {% assign item_width = 4 %}
+  {% when '4' %}
+    {% assign item_width = 3 %}
+  {% when '6' %}
+    {% assign item_width = 2 %}
+{% endcase %}
+
+<div class="product product__product-grid-item col-sm-{{ item_width }} {% case listing_cols %}{% when '1' %}{% cycle : '', 'alpha' %}{% when '2' %}{% cycle : '', '', 'alpha' %}{% when '3' %}{% cycle : '', '', '', 'alpha' %}{% when '4' %}{% cycle : '', '', '', '', 'alpha' %}{% when '6' %}{% cycle : '', '', '', '', '', '', 'alpha' %}{% endcase %}{% cycle 'odd_even': 'item_odd', 'item_even' %} {% cycle 'step3': 'step3-1', 'step3-2', 'step3-3' %} {% cycle 'step4': 'step4-1', 'step4-2', 'step4-3', 'step4-4' %}">
+<div class="product_item">
+  <div class="product_image-wrap">  
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | product_img_url: image_size }}" alt="{{ product.featured_image.alt | escape }}" />
+    </a>
+  </div><!-- .prod-image-wrap -->
+          <div class="product_title-wrap">
+          <a href="{{ product.url | within: collection }}" class="product_title">
+            {{ product.title }}
+          </a>
+          <br>
+          <div class="col-slider-price">
+            <span class="price-lable">Price:</span>
+          <span class="money">
+            	{{ product.price | money }}
+		  </span>
+          </div>
+            {% include 'wishlist-col-product-slider' %}
+        </div>
+  <div class="shadow3"></div>
+</div>
+  
+</div>

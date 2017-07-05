@@ -1,0 +1,41 @@
+<div id="ajaxcart" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        <div class="row">
+          <div class="ajax-cart-items">
+            <div class="col-sm-9">
+            <form action="/cart" method="post" class="ajaxcartform" class="form-inline">
+            <div class="ajaxitems">
+
+            </div>
+             
+            </form>
+              </div>
+          <div class="col-sm-3">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="cart-item-total">
+            <div><span class="cartitemcount">0</span></div>
+            <div class="view-your-cart"><a href="/cart"><img width="140px" src="{{ 'viewcart.png' | asset_url }}"></a></div>
+            <div class="cart-checkout"><a href="/checkout"><img width="140px" src="{{ 'checkoutnow.png' | asset_url }}"></a></div>
+            <div class="keep-shipping"><a href="javascript:void(0)">Keep Shopping</a></div>
+          </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-7 payforfree">
+            <img src="{{ 'payforfree.png' | asset_url }}">
+          </div>
+          <div class="col-sm-5 freereturns">
+            <img src="{{ 'freereturns.png' | asset_url }}">
+          </div>
+        </div>
+        {% include 'cart_related_items' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ajaxcart">Open Modal</button>-->

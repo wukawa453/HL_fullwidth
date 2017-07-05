@@ -1,0 +1,57 @@
+{% assign listing_cols = '1' %}
+{% assign image_size = 'original' %}
+
+<div class="widget widget_collection-sellers">
+  <div class="widget_content">
+    <div class="product-listing product-listing__bestsellers">
+       <div id="best-seller-slider" class="product-flexslider hidden-buttons">
+              <div class="slider-items slider-width-col4 slider-col-items"> 
+                
+                <!-- Item -->
+               
+  {% for product in collections[settings.bestsellers_cat].products limit:12 %}
+                 <div class="item">
+    
+        {% include 'product-col-grid-slider-item' with 'listing_cols' with 'image_size' %}
+                   
+                   </div>
+      {% endfor %}
+    </div>
+          </div>
+       </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+ jQuery(document).ready(function(cash) {
+  jQuery("#best-seller-slider .slider-col-items").owlCarousel({
+   items : 5, //10 items above 1000px browser width
+   itemsDesktop : [1024,4], //5 items between 1024px and 901px
+   itemsDesktopSmall : [900,3], // 3 items betweem 900px and 601px
+   itemsTablet: [600,2], //2 items between 600 and 0;
+   itemsMobile : [450,1],
+   navigation : true,
+   navigationText : ["<a class=\"flex-prev\"></a>","<a class=\"flex-next\"></a>"],
+   slideSpeed : 500,
+   pagination : false,
+   loops:true,
+   margin:10,
+   autoPlay:false,
+   direction:'rtl',
+   addClassActive : true,
+   afterMove : function (elem) {
+     jQuery('.product-listing .owl-item').removeClass('middleitem');
+     jQuery('.product-listing .active:eq(2)').addClass('middleitem');
+   }
+     });
+ }); 
+//]]>
+</script>
+<script>
+  jQuery(document).ready(function() {
+    setTimeout(function(){
+    jQuery('.product-listing .active:eq(2)').addClass('middleitem');
+    }, 1000);
+  });
+</script>
